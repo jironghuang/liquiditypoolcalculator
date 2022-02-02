@@ -1,7 +1,7 @@
 # liquiditypoolcalculator
 
-1. The aim of this package is to provide a simple framework to compute expected changes in value of liqudity pool.
-2. With the expected changes in liquidity pool, traders could estimate impermanent losses and expected profits. Arbitrageurs could apply appropiate hedge ratios through futures/ perpetuals to extract the yield.
+1. The aim of this package is to provide a simple framework to compute expected changes in value of liquidity pool.
+2. With the expected changes in liquidity pool, traders could estimate impermanent losses and expected profits. Arbitrageurs could apply appropriate hedge ratios through futures/ perpetuals to extract the yield.
 
 ## Note on current version 0
 
