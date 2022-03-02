@@ -1,7 +1,9 @@
 README.md
 setup.py
 liquiditypoolcalculator/__init__.py
+liquiditypoolcalculator/uniswapv2_class.py
 liquiditypoolcalculator/uniswapv3_class.py
+liquiditypoolcalculator/uniswapv3_hedging.py
 liquiditypoolcalculator.egg-info/PKG-INFO
 liquiditypoolcalculator.egg-info/SOURCES.txt
 liquiditypoolcalculator.egg-info/dependency_links.txt

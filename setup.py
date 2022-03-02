@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(name='liquiditypoolcalculator',
-      version='0.0.3',
+      version='0.0.7',
       description='Liquidity pool value simulator',
       long_description=long_description,
       long_description_content_type="text/markdown",

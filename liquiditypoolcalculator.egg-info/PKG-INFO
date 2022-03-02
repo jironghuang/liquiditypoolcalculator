@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: liquiditypoolcalculator
-Version: 0.0.3
+Version: 0.0.7
 Summary: Liquidity pool value simulator
 Home-page: https://github.com/jironghuang/liquiditypoolcalculator
 Author: Jirong Huang
@@ -23,6 +23,7 @@ Description: # liquiditypoolcalculator
         
         - https://uniswap.org/blog/uniswap-v3
         - Page 5: https://atiselsts.github.io/pdfs/uniswap-v3-liquidity-math.pdf
+        - https://lambert-guillaume.medium.com/how-to-deploy-delta-neutral-liquidity-in-uniswap-or-why-euler-finance-is-a-game-changer-for-lps-1d91efe1e8ac
         
         ## Set up
         
@@ -101,6 +102,42 @@ Description: # liquiditypoolcalculator
         [7 rows x 8 columns]
               
         ```
+        
+        ### An alternative way of hedging based on price range and known pool value
+        
+        - Please read following article for more info: https://lambert-guillaume.medium.com/how-to-deploy-delta-neutral-liquidity-in-uniswap-or-why-euler-finance-is-a-game-changer-for-lps-1d91efe1e8ac
+        - hedge_num_asset1, in this case eth can be borrowed amount against stablecoin collateral. Or short perpetual/future contracts.
+        
+        ```
+        import pandas as pd
+        from liquiditypoolcalculator.uniswapv3_hedging import *
+        
+        num_asset1 = 5.44
+        orig_price_denom_asset2 = 2923.76  #Take this as current price. Used as strike price. Analagous to middle price with 0 delta risk in a short straddle
+        lower_price_denom_asset2 = orig_price_denom_asset2 * 0.73 #Use calculator to obtain 0.73 based on range factor, https://www.desmos.com/calculator/669zg1rmvb
+        upper_price_denom_asset2 = orig_price_denom_asset2 * 1.3601785714285715 #Use calculator to obtain 1.36 based on range factor, https://www.desmos.com/calculator/669zg1rmvb
+        target_pool_value = 36641.91 
+        
+        
+        res = amt_assets_from_range(num_asset1, orig_price_denom_asset2, lower_price_denom_asset2, upper_price_denom_asset2, target_pool_value)    
+        res
+        
+        Out[103]: 
+        {'num_asset1': 5.44,
+         'num_asset2': 16243.998561849383,
+         'scaled_num_asset1': 6.200205977928685,
+         'scaled_num_asset2': 18513.99576997123,
+         'orig_value_asset_in_asset2': 32149.252961849386,
+         'scaled_value_asset_in_asset2': 36641.91}
+        
+        
+        uniswap_v3_hedging_ratio_amt(lower_price_denom_asset2, upper_price_denom_asset2, res['scaled_value_asset_in_asset2'], orig_price_denom_asset2)    
+        
+        Out[104]: {'hedge_ratio': 0.46118284684393274, 'hedge_num_asset1': 5.779756330067846}
+        
+        ```
+        
+        
         
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
